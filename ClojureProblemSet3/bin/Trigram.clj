@@ -1,32 +1,3 @@
-;(conj [] 1 2 3 4)
-;
-;
-;(reduce (fn [counts c]
-;              (assoc! counts c
-;                      (inc (get counts c 0)))) 
-;            (transient {})
-;            s
-;)
-;
-;
-;(defn tri-gram [input ourMap]
-;  (if (> (count input) 2)
-;    (tri-gram
-;      (rest input)
-;      (assoc
-;        ourMap
-;        (tri input)
-;        (inc (get ourMap (tri input) 0))
-;      )
-;    )
-;    (tri-gram
-;      (rest input)
-;      ourMap
-;    )
-;  )
-;)
-
-
 (defn tri [input]
   (conj []
         (first input)
@@ -56,33 +27,33 @@
   )
 )
 
-(defn tri-grams-from-files [& args]
-  (tri-gram
-    (clojure.string/split
-	    (reduce 
-		    #(str %1 (slurp %2))
-		    ""
-		    args
-		  )
-      #" "
-    )
-    {}
-  )
-)
-
 (defn fileToSeq [fileName]
   (def myString (slurp fileName))
   (re-seq #"[a-zA-Z]+(?:\-?[a-zA-Z]+|\'?[a-zA-Z]*)" myString)
 )
 
-
 (tri-gram (fileToSeq "src/files/Act1Prologue.txt") {})
+            
+(defn tri-grams-from-files [& args]
+  (reduce
+    #(merge-with
+       +
+       %1
+       (tri-gram (fileToSeq %2) {})
+    )
+    {}
+    args
+  )
+)
 
-;(def shakespeare1 (slurp "src/files/Act1Prologue.txt"))
-;(re-seq #"[a-zA-Z]+(?:\-?[a-zA-Z]+|\'?[a-zA-Z]*)" shakespeare1)
-
-
-;(tri-grams-from-files "src/files/Act1Prologue.txt" "src/files/Act2Prologue.txt" "src/files/Act3Prologue.txt")
+(tri-grams-from-files 
+  "src/midsummer/act1Scene1.txt" 
+  "src/midsummer/act1Scene2.txt" 
+  "src/midsummer/act2Scene1.txt" 
+  "src/midsummer/act2Scene2.txt" 
+  "src/midsummer/act3Scene1.txt" 
+  "src/midsummer/act3Scene2.txt" 
+)
 
 
 
