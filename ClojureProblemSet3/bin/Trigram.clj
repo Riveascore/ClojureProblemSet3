@@ -33,29 +33,68 @@
 )
 
 (tri-gram (fileToSeq "src/files/Act1Prologue.txt") {})
-            
+
 (defn tri-grams-from-files [& args]
+  (def trigrams
+    (map #(tri-gram
+            (fileToSeq %1)
+            {}
+          )
+         args))
+  
+  
   (reduce
     #(merge-with
        +
        %1
-       (tri-gram (fileToSeq %2) {})
+       %2
     )
     {}
-    args
+    trigrams
   )
 )
 
-(tri-grams-from-files 
-  "src/midsummer/act1Scene1.txt" 
-  "src/midsummer/act1Scene2.txt" 
-  "src/midsummer/act2Scene1.txt" 
-  "src/midsummer/act2Scene2.txt" 
-  "src/midsummer/act3Scene1.txt" 
-  "src/midsummer/act3Scene2.txt" 
+(defn parallel-tri-grams-from-files [& args]
+  (def trigrams
+    (pmap #(tri-gram
+            (fileToSeq %1)
+            {}
+          )
+         args))
+  
+  
+  (reduce
+    #(merge-with
+       +
+       %1
+       %2
+    )
+    {}
+    trigrams
+  )
 )
 
 
-
-
-
+;(println
+;  (with-out-str
+;		(time
+;			(tri-grams-from-files 
+;			  "src/midsummer/act1Scene1.txt" 
+;			  "src/midsummer/act1Scene2.txt" 
+;			  "src/midsummer/act2Scene1.txt" 
+;			  "src/midsummer/act2Scene2.txt" 
+;			  "src/midsummer/act3Scene1.txt" 
+;			  "src/midsummer/act3Scene2.txt" 
+;			))))
+;
+;(println
+;  (with-out-str
+;		(time
+;			(parallel-tri-grams-from-files
+;			  "src/midsummer/act1Scene1.txt" 
+;			  "src/midsummer/act1Scene2.txt" 
+;			  "src/midsummer/act2Scene1.txt" 
+;			  "src/midsummer/act2Scene2.txt" 
+;			  "src/midsummer/act3Scene1.txt" 
+;			  "src/midsummer/act3Scene2.txt" 
+;			))))
