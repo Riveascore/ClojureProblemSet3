@@ -70,4 +70,21 @@
   )
 )
 
-(tri-grams-from-files "src/files/Act1Prologue.txt" "src/files/Act2Prologue.txt" "src/files/Act3Prologue.txt")
+(defn fileToSeq [fileName]
+  (def myString (slurp fileName))
+  (re-seq #"[a-zA-Z]+(?:\-?[a-zA-Z]+|\'?[a-zA-Z]*)" myString)
+)
+
+
+(tri-gram (fileToSeq "src/files/Act1Prologue.txt") {})
+
+;(def shakespeare1 (slurp "src/files/Act1Prologue.txt"))
+;(re-seq #"[a-zA-Z]+(?:\-?[a-zA-Z]+|\'?[a-zA-Z]*)" shakespeare1)
+
+
+;(tri-grams-from-files "src/files/Act1Prologue.txt" "src/files/Act2Prologue.txt" "src/files/Act3Prologue.txt")
+
+
+
+
+
