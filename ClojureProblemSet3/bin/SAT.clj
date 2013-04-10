@@ -28,19 +28,8 @@
   (pmap #(satEvaluation % fullVector) inputMaps)
 )
 
-;(check-assignment-list 
-;		  [ [:p] [:q :r] ]
-;		  [{:p true, :q false, :r true},
-;		   {:p true, :q false, :r false},
-;		   {:p false, :q true, :r true}])
-
-(def abcMap {:a true, :b false, :c true})
 (def bigVector [ [:a :b :c] [[:not :a] :b [:not :c]] [:a :b [:not :c]] [:a [:not :b] :c] ])
 (def mapOfMaps [{:a true, :b false, :c true}, {:a true, :b false, :c false}, {:a false, :b true, :c true}])
-
-
-(map #(orTransformation % abcMap) bigVector)
-(satEvaluation abcMap bigVector)
 
 (check-assignment-list
   bigVector

@@ -32,7 +32,11 @@
   (re-seq #"[a-zA-Z]+(?:\-?[a-zA-Z]+|\'?[a-zA-Z]*)" myString)
 )
 
-(tri-gram (fileToSeq "src/files/Act1Prologue.txt") {})
+;(println
+;  (with-out-str
+;		(time
+;			(tri-gram (fileToSeq "src/files/Act1Prologue.txt") {}))))
+   
 
 (defn tri-grams-from-files [& args]
   (def trigrams
@@ -75,26 +79,26 @@
 )
 
 
-;(println
-;  (with-out-str
-;		(time
-;			(tri-grams-from-files 
-;			  "src/midsummer/act1Scene1.txt" 
-;			  "src/midsummer/act1Scene2.txt" 
-;			  "src/midsummer/act2Scene1.txt" 
-;			  "src/midsummer/act2Scene2.txt" 
-;			  "src/midsummer/act3Scene1.txt" 
-;			  "src/midsummer/act3Scene2.txt" 
-;			))))
-;
-;(println
-;  (with-out-str
-;		(time
-;			(parallel-tri-grams-from-files
-;			  "src/midsummer/act1Scene1.txt" 
-;			  "src/midsummer/act1Scene2.txt" 
-;			  "src/midsummer/act2Scene1.txt" 
-;			  "src/midsummer/act2Scene2.txt" 
-;			  "src/midsummer/act3Scene1.txt" 
-;			  "src/midsummer/act3Scene2.txt" 
-;			))))
+(println
+  (with-out-str
+		(time
+			(tri-grams-from-files 
+			  "src/midsummer/act1Scene1.txt" 
+			  "src/midsummer/act1Scene2.txt" 
+			  "src/midsummer/act2Scene1.txt" 
+			  "src/midsummer/act2Scene2.txt" 
+			  "src/midsummer/act3Scene1.txt" 
+			  "src/midsummer/act3Scene2.txt" 
+			))))
+
+(println
+  (with-out-str
+		(time
+			(parallel-tri-grams-from-files
+			  "src/midsummer/act1Scene1.txt" 
+			  "src/midsummer/act1Scene2.txt" 
+			  "src/midsummer/act2Scene1.txt" 
+			  "src/midsummer/act2Scene2.txt" 
+			  "src/midsummer/act3Scene1.txt" 
+			  "src/midsummer/act3Scene2.txt" 
+			))))
